@@ -1,0 +1,18 @@
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+vs_backup/
+
+# Visual Studio Code
+.vscode/
+
+# Logs
+*.log
+
+# User-specific files
+*.sln.docstates

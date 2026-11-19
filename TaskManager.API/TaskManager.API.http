@@ -1,0 +1,29 @@
+@TaskManager.API_HostAddress = http://localhost:5034
+
+### Get All Tasks
+GET {{TaskManager.API_HostAddress}}/api/Tasks
+Accept: application/json
+
+### Create New Task
+POST {{TaskManager.API_HostAddress}}/api/Tasks
+Content-Type: application/json
+
+{
+    "title": "Learn ASP.NET Core",
+    "description": "Build my first Task Manager API",
+    "isCompleted": false
+}
+
+### Update Task
+PUT {{TaskManager.API_HostAddress}}/api/Tasks/1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "title": "Learn ASP.NET Core - Updated",
+    "description": "Complete my Task Manager API",
+    "isCompleted": true
+}
+
+### Delete Task
+DELETE {{TaskManager.API_HostAddress}}/api/Tasks/1
