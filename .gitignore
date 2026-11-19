@@ -1,3 +1,6 @@
-
 .vs/
-**/.vs/
+vs_backup/
+**/bin/
+**/obj/
+*.user
+*.suo
