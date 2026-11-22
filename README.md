@@ -6,7 +6,7 @@ Project Overview
 
 Mini Task Manager is a web application designed to help users organize, manage, and track their daily tasks through a simple and user-friendly interface.
 
-The application uses Angular for the frontend and ASP.NET Core Web API for backend services, with SQL Server for data persistence.
+The application uses Angular for the frontend and ASP.NET Core Web API for backend services, with SQL Server for data persistence. 
 
 Technologies Used
 
