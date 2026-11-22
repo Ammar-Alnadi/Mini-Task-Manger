@@ -103,7 +103,9 @@ The application uses SQL Server LocalDB with Entity Framework Core to manage and
 Make sure the database connection string is configured correctly in the backend settings.
 
 Developer
+## Application Screenshot
 
+![TaskFlow Dashboard](screenshots/Screenshot%202026-11-22%20181946.png)
 Ammar Alnadi
 
 GitHub: Ammar-Alnadi
