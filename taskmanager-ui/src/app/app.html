@@ -1,0 +1,178 @@
+<div class="app-container" dir="rtl">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">✓</div>
+      <span>TaskFlow</span>
+    </div>
+
+    <nav>
+      <a class="nav-item active">▦ <span>لوحة التحكم</span></a>
+      <a class="nav-item">☑ <span>كل المهام</span></a>
+      <a class="nav-item">◷ <span>قيد التنفيذ</span></a>
+      <a class="nav-item">✓ <span>مكتملة</span></a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="profile-avatar">A</div>
+      <div>
+        <strong>Ammar</strong>
+        <small>Personal Workspace</small>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <header class="topbar">
+      <div>
+        <h1>لوحة التحكم</h1>
+        <p>أهلاً بك! إليك ملخص مهامك اليوم.</p>
+      </div>
+
+      <button class="add-button" (click)="openAddForm()">
+        ＋ إضافة مهمة
+      </button>
+    </header>
+
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span>إجمالي المهام</span>
+        <strong>{{ tasks.length }}</strong>
+        <small>جميع مهامك</small>
+      </div>
+
+      <div class="stat-card">
+        <span>قيد التنفيذ</span>
+        <strong>{{ pendingTasksCount }}</strong>
+        <small>مهام تحتاج إنجاز</small>
+      </div>
+
+      <div class="stat-card">
+        <span>المهام المكتملة</span>
+        <strong>{{ completedTasksCount }}</strong>
+        <small>أحسنت العمل!</small>
+      </div>
+
+      <div class="stat-card">
+        <span>المهام المتأخرة</span>
+        <strong>0</strong>
+        <small>تحتاج إلى متابعة</small>
+      </div>
+    </section>
+
+    <section class="tasks-section">
+      <div class="section-heading">
+        <div>
+          <h2>مهامي</h2>
+          <p>تابع ونظّم جميع أعمالك</p>
+        </div>
+
+        <input type="search"
+               placeholder="ابحث عن مهمة..."
+               [(ngModel)]="searchText" />
+      </div>
+
+      <div class="filters">
+        <button class="filter"
+                [class.active]="filterStatus === 'all'"
+                (click)="filterStatus = 'all'">
+          الكل
+        </button>
+
+        <button class="filter"
+                [class.active]="filterStatus === 'pending'"
+                (click)="filterStatus = 'pending'">
+          قيد التنفيذ
+        </button>
+
+        <button class="filter"
+                [class.active]="filterStatus === 'completed'"
+                (click)="filterStatus = 'completed'">
+          مكتملة
+        </button>
+      </div>
+
+      <div class="task-list">
+        @for (task of filteredTasks; track task.id) {
+        <div class="task-row">
+          <div class="task-check"
+               [class.completed]="task.isCompleted"
+               (click)="toggleTask(task)"
+               style="cursor: pointer;">
+            @if (task.isCompleted) {
+            ✓
+            }
+          </div>
+
+          <div class="task-info">
+            <strong [class.done]="task.isCompleted">
+              {{ task.title }}
+            </strong>
+            <small>{{ task.description }}</small>
+          </div>
+
+          <span class="status"
+                [class.success]="task.isCompleted"
+                [class.pending]="!task.isCompleted">
+            {{ task.isCompleted ? 'مكتملة' : 'قيد التنفيذ' }}
+          </span>
+
+          <div class="task-actions">
+            <button class="edit-button"
+                    (click)="editTask(task)">
+              تعديل
+            </button>
+
+            <button class="delete-button"
+                    (click)="deleteTask(task)">
+              حذف
+            </button>
+          </div>
+        </div>
+        }
+
+        @if (filteredTasks.length === 0) {
+        <div class="empty-state">
+          لا توجد مهام مطابقة لبحثك أو للفلتر المحدد.
+        </div>
+        }
+      </div>
+    </section>
+  </main>
+</div>
+
+@if (showAddForm) {
+<div class="modal-overlay">
+  <div class="modal">
+    <h2>
+      {{ editingTaskId === null ? 'إضافة مهمة جديدة' : 'تعديل المهمة' }}
+    </h2>
+
+    <p>أدخل تفاصيل المهمة</p>
+
+    <label>اسم المهمة</label>
+    <input type="text"
+           placeholder="مثلاً: إنهاء المشروع"
+           [(ngModel)]="newTaskTitle" />
+
+    <label>وصف المهمة</label>
+    <textarea placeholder="اكتب وصف المهمة..."
+              [(ngModel)]="newTaskDescription"></textarea>
+
+    <div class="modal-actions">
+      <button class="cancel-button" (click)="closeAddForm()">
+        إلغاء
+      </button>
+
+      @if (editingTaskId === null) {
+      <button class="add-button" (click)="addTask()">
+        حفظ المهمة
+      </button>
+      } @else {
+      <button class="add-button" (click)="saveTask()">
+        حفظ التعديلات
+      </button>
+      }
+    </div>
+  </div>
+</div>
+}

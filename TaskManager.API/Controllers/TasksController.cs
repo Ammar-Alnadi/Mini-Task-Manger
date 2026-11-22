@@ -63,7 +63,7 @@ namespace TaskManager.API.Controllers
             _context.Tasks.Remove(task);
             await _context.SaveChangesAsync();
 
-            return Ok("Task deleted successfully");
+            return NoContent();
         }
     }
 }
